@@ -1,0 +1,98 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 9;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000001ced402aec0 .scope module, "johnson_counter_tb" "johnson_counter_tb" 2 7;
+ .timescale -9 -9;
+P_000001ced3e869b0 .param/l "SIMULATION_CYCLES" 0 2 21, +C4<00000000000000000000000001100100>;
+v000001ced402bcd0_0 .var "clock", 0 0;
+v000001ced4026930_0 .net "counter_state", 3 0, L_000001ced402b050;  1 drivers
+v000001ced40269d0_0 .var "reset", 0 0;
+E_000001ced3e86530 .event posedge, v000001ced4027130_0;
+S_000001ced402b960 .scope module, "dut" "johnson_counter" 2 14, 3 1 0, S_000001ced402aec0;
+ .timescale -9 -9;
+    .port_info 0 /INPUT 1 "clock";
+    .port_info 1 /INPUT 1 "reset";
+    .port_info 2 /OUTPUT 4 "counter_state";
+L_000001ced402b050 .functor BUFZ 4, v000001ced402baf0_0, C4<0000>, C4<0000>, C4<0000>;
+v000001ced4027130_0 .net "clock", 0 0, v000001ced402bcd0_0;  1 drivers
+v000001ced402baf0_0 .var "counter", 3 0;
+v000001ced402bb90_0 .net "counter_state", 3 0, L_000001ced402b050;  alias, 1 drivers
+v000001ced402bc30_0 .net "reset", 0 0, v000001ced40269d0_0;  1 drivers
+E_000001ced3e86170 .event posedge, v000001ced402bc30_0, v000001ced4027130_0;
+    .scope S_000001ced402b960;
+T_0 ;
+    %wait E_000001ced3e86170;
+    %load/vec4 v000001ced402bc30_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 4;
+    %assign/vec4 v000001ced402baf0_0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v000001ced402baf0_0;
+    %parti/s 3, 0, 2;
+    %load/vec4 v000001ced402baf0_0;
+    %parti/s 1, 3, 3;
+    %inv;
+    %concat/vec4; draw_concat_vec4
+    %assign/vec4 v000001ced402baf0_0, 0;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_000001ced402aec0;
+T_1 ;
+    %vpi_call 2 27 "$dumpfile", "johnson_counter.vcd" {0 0 0};
+    %vpi_call 2 28 "$dumpvars", 32'sb00000000000000000000000000000000, S_000001ced402aec0 {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_000001ced402aec0;
+T_2 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ced402bcd0_0, 0, 1;
+T_2.0 ;
+    %delay 5, 0;
+    %load/vec4 v000001ced402bcd0_0;
+    %inv;
+    %store/vec4 v000001ced402bcd0_0, 0, 1;
+    %jmp T_2.0;
+    %end;
+    .thread T_2;
+    .scope S_000001ced402aec0;
+T_3 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ced40269d0_0, 0, 1;
+    %delay 10, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ced40269d0_0, 0, 1;
+    %delay 20, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001ced40269d0_0, 0, 1;
+    %delay 30, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001ced40269d0_0, 0, 1;
+    %end;
+    .thread T_3;
+    .scope S_000001ced402aec0;
+T_4 ;
+    %wait E_000001ced3e86530;
+    %vpi_call 2 53 "$display", "Counter State: %b", v000001ced4026930_0 {0 0 0};
+    %vpi_func 2 56 "$time" 64 {0 0 0};
+    %cmpi/u 1000, 0, 64;
+    %flag_inv 5; GE is !LT
+    %jmp/0xz  T_4.0, 5;
+    %vpi_call 2 57 "$finish" {0 0 0};
+T_4.0 ;
+    %jmp T_4;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "johnson_tb.v";
+    "./johnson.v";
